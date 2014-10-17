@@ -1,0 +1,231 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<title>Scala-Praktikum</title>
+
+<link rel="stylesheet" href="stylesheets/styles.css">
+<link rel="stylesheet" href="stylesheets/pygment_trac.css">
+<script src="javascripts/scale.fix.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+<!--[if lt IE 9]>
+<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="wrapper">
+<header>
+<h1>Introduction to Parsing in Scala</h1>
+<p>Praktikum, 6 ETCS, WS 2014--15</p>
+<p>Eberhard Karls Universität Tübingen</p>
+
+<p class="view"><a href="https://github.com/yfcai/scala">View the
+Project on GitHub
+<small>yfcai/scala</small></a></p>
+<ul>
+<li><a href="https://github.com/yfcai/scala">View On <strong>GitHub</strong></a></li>
+</ul>
+</header>
+
+<section>
+<h3>Description</h3>
+<p>
+This is a practice module for students in their 3rd semester or
+later. Participants will learn the language Scala by writing
+parsers, one of the most well-studied---and arguably the most
+fun---software components. Parsers discover structure inherent in
+a piece of text, making it easy for other programs to process.
+A good parser is indispensable in a programming
+language implementation, but it can also be very useful for day-to-day
+computing. Participants should have some experience programming in
+Java.
+<p>
+</section>
+
+<section>
+<h3>Organizers</h3>
+<p>
+<a href="mailto:yufei.cai@uni-tuebingen.de">Yufei Cai</a>
+and Prof. Dr.
+<a href="http://www.informatik.uni-marburg.de/~kos/">Klaus Ostermann</a>
+</p>
+</section>
+
+<section>
+<h3>Meetings</h3>
+
+<p>
+Each student should meet us once per week, at an individually
+scheduled time, in Room B221. Other events are listed below.
+</p>
+
+<table>
+<tr>
+<th>Date</th>
+<th>Time</th>
+<th>Place</th>
+<th>Content</th>
+<th>Material</th>
+</tr>
+
+<tr>
+<td>15.10.2014</td>
+<td>12:15--13:00</td>
+<td>Hörsaal A104</td>
+<td>Organization</td>
+<td>
+<a href="0-organization/organization.pdf">slides</a>
+</td>
+</tr>
+</table>
+</section>
+
+<section>
+<h3>Exercises</h3>
+<table>
+<tr>
+<th>ID</th>
+<th>Deadline</th>
+<th>Topic</th>
+<th>Sheets</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>24.10.2014</td>
+<td>Hello, algebraic datatypes</td>
+<td>
+<a href="https://github.com/yfcai/scala/tree/gh-pages/1-hello">root</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/1-hello/1-scalac/Hello.scala">1.1</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/1-hello/2-sbt/src/main/scala/Hello.scala">1.2</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/1-hello/2-sbt/src/test/scala/HelloSpec.scala">1.3</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/1-hello/3-adt/src/main/scala/Shapes.scala">1.4</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/1-hello/3-adt/src/test/scala/ShapesSpec.scala">test</a>
+</td>
+</tr>
+
+<tr>
+<td>2.1</td>
+<td>31.10.2014</td>
+<td>Recursive descent</td>
+<td>
+<a href="https://github.com/yfcai/scala/tree/gh-pages/2-descent">root</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/2-descent/src/main/scala/AE.scala">sheet</a>
+<a href="https://github.com/yfcai/scala/blob/gh-pages/2-descent/src/test/scala/AESpec.scala">test</a>
+</td>
+</tr>
+
+<tr>
+<td>2.2</td>
+<td>07.11.2014</td>
+<td>Parser combinators</td>
+<td></td>
+</tr>
+
+<tr>
+<td>3</td>
+<td></td>
+<td>Grammar interpretation</td>
+<td></td>
+</tr>
+
+<tr>
+<td>4</td>
+<td></td>
+<td>Top-down parsing</td>
+<td></td>
+</tr>
+
+<tr>
+<td>5</td>
+<td></td>
+<td>Left factoring</td>
+<td></td>
+</tr>
+
+
+<tr>
+<td>7</td>
+<td></td>
+<td>Bottom-up parsing</td>
+<td></td>
+</tr>
+
+<tr>
+<td>8</td>
+<td></td>
+<td>Associativity</td>
+<td></td>
+</tr>
+
+<tr>
+<td>9</td>
+<td>06.01.2015</td>
+<td>Christmas holiday</td>
+<td>None</td>
+</tr>
+
+<tr>
+<td>A</td>
+<td></td>
+<td>Pretty printing</td>
+<td></td>
+</tr>
+
+<tr>
+<td>B</td>
+<td></td>
+<td>Extensable parsing</td>
+<td></td>
+</tr>
+
+<tr>
+<td>C</td>
+<td></td>
+<td>Final project</td>
+<td></td>
+</tr>
+
+</table>
+</section>
+
+<section>
+<h3>Literature</h3>
+<ol>
+
+<li><p>
+Martin Odersky, Lex Spoon, and Bill Venners.
+<i>Programming in Scala.</i>
+Artimer Developer, 2010.
+First edition available online:
+<a
+href="http://www.artima.com/pins1ed/">http://www.artima.com/pins1ed/</a>
+</p></li>
+
+<li><p>
+Alfred V. Aho, monica S. Lam, Ravi Sethi, and Jeffrey D. Ullmann.
+<i>Compilers: Principles, Techniques, and Tools.</i>
+Pearson Education, 2006.
+</p></li>
+
+<li><p>
+Dick Grune and Ceriel J. H. Jacobs.
+<i>Parsing Techniques: A Practical Guide.</i>
+Springer, 2010.
+</p></li>
+
+</ol>
+</section>
+
+</div>
+<footer>
+<p>Project maintained by <a href="https://github.com/yfcai">yfcai</a></p>
+<p>Hosted on GitHub Pages &mdash;
+Theme by <a href="https://github.com/orderedlist">orderedlist</a></p>
+</footer>
+<!--[if !IE]><script>fixScale(document);</script><![endif]-->
+
+</body>
+</html>
