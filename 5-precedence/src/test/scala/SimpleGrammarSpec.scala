@@ -18,7 +18,7 @@ class SimpleGrammarSpec extends FlatSpec {
         Leaf('num, "2"))))
 
     assert(parseAE("(1 + 2)") ==
-      Branch('addP, List(
+      Branch('add, List(
         Leaf('num, "1"),
         Leaf('num, "2"))))
 
@@ -34,7 +34,7 @@ class SimpleGrammarSpec extends FlatSpec {
 
     assert(parseAE("(1+2)*1234") ==
       Branch('mul, List(
-        Branch('addP, List(
+        Branch('add, List(
             Leaf('num, "1"),
             Leaf('num, "2")
           )),

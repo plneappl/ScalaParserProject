@@ -57,13 +57,13 @@ object SimpleGrammar extends util.Combinators {
     def lookup(nonterminal: Nonterminal): RuleRHS = rules(nonterminal)
   }
 
-  //do precedence by first looking for the adds adding the muls, then the muls mul'ing the nums
+  //this is with parentheses, not sure if all cases are covered by this
   val ae: Grammar =
     Grammar(
       start = exp,
       rules = Map(
-        exp -> (expPrec || expPar),
-        expPar -> (addP || mulP || num),
+        exp -> ( expPrec || expPar ),
+        expPar -> ( addP || mulP || num || ( lp ~ num ~ rp ) || ( lp ~ expPar ~ rp ) ),
         addP -> ( lp ~ num ~ #+ ~ exp ~ rp ),
         mulP -> ( lp ~ num ~ #* ~ exp ~ rp ), 
 
@@ -72,6 +72,19 @@ object SimpleGrammar extends util.Combinators {
         mul -> ((expPar ~ #* ~ mul) || num || expPar)
       )
     )
+
+  //do precedence by first looking for the adds adding the muls, then the muls mul'ing the nums  
+  /*
+  val ae: Grammar =
+    Grammar(
+      start = exp,
+      rules = Map(
+        exp -> (add || num),
+        add -> ((mul ~ #+ ~ add) || mul),
+        mul -> ((num ~ #* ~ mul) || num)
+      )
+    )
+  */
 
   /*
   val ae: Grammar =
@@ -137,10 +150,13 @@ object SimpleGrammar extends util.Combinators {
     
       case Select(c1, c2) => (parseRHS(c1, grammar) | parseRHS(c2, grammar)) 
 
-      case Choice(c1, c2) => parseRHS(c1, grammar) | parseRHS(c2, grammar)
+      case Choice(c1, c2) => (parseRHS(c1, grammar) | parseRHS(c2, grammar))
     }
 
   def simplifyAE(syntaxTree: Tree): Tree = syntaxTree match {
+    case Branch('addP, l) => simplifyAE(Branch('add, l))
+    case Branch('mulP, l) => simplifyAE(Branch('mul, l))
+
     case Branch(symbol, list) => {
       var rule = ae.lookup(Nonterminal(symbol))
       rule match {
@@ -160,17 +176,10 @@ object SimpleGrammar extends util.Combinators {
   def eval(t: Tree): Int = t match {
       case Branch('add, List(lhs, rhs)) =>
         eval(lhs) + eval(rhs)
-      
-      case Branch('addP, List(lhs, rhs)) =>
-        eval(lhs) + eval(rhs)
-  
 
       case Branch('mul, List(lhs, rhs)) =>
         eval(lhs) * eval(rhs)
 
-      case Branch('mulP, List(lhs, rhs)) =>
-        eval(lhs) * eval(rhs)
-  
       case Leaf('num, code) =>
         code.toInt
     }
