@@ -1,0 +1,301 @@
+\documentclass{article}
+\title{}
+\author{Simon Wegendt}
+\usepackage[utf8]{inputenc}
+\usepackage{ngerman}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{lastpage}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{titlesec}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{extarrows}
+\usepackage{listings} \lstset{numbers=left, numberstyle=\tiny, numbersep=5pt} 
+\lstdefinelanguage{scala}{
+  morekeywords={abstract,case,catch,class,def,%
+    do,else,extends,false,final,finally,%
+    for,if,implicit,import,match,mixin,%
+    new,null,object,override,package,%
+    private,protected,requires,return,sealed,%
+    super,this,throw,trait,true,try,%
+    type,val,var,while,with,yield},
+  otherkeywords={=>,<-,<\%,<:,>:,\#,@},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[n]{/*}{*/},
+  morestring=[b]",
+  morestring=[b]',
+  morestring=[b]"""
+}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+% Default settings for code listings
+\lstset{frame=tb,
+  language=scala,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  frame=single,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{stmaryrd}
+\usepackage{xfrac}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{stmaryrd}
+\usepackage{centernot}
+\usepackage{amssymb}
+\usepackage{calc}
+\usepackage[nomessages]{fp}
+\usepackage{polynom}
+\usepackage{ctable}
+\usepackage{tikz}
+\usepackage{tikz-qtree}
+\usepackage{multirow}
+\usepackage{bigstrut}
+\usepackage{bigdelim}
+\usepackage{bussproofs}
+\usepackage{rotating}
+\usepackage{syntax}
+\setlength{\grammarindent}{4em}
+%\usepackage{sagetex}
+
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+\pagestyle{fancy}
+\fancyhead[L]{Introduction to parsing in Scala}
+\fancyhead[C]{Documentation}
+\fancyhead[R]{\today}
+\fancyfoot[L]{Simon Wegendt}
+\fancyfoot[C]{Seite \thepage /\pageref{LastPage}}
+\fancyfoot[R]{9 - Final project}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\parindent0pt
+\newcommand{\klammern}[1]{\left( #1 \right)}
+\newcommand*\colvec[3][]{
+    \begin{pmatrix}\ifx\relax#1\relax\else#1\\\fi#2\\#3\end{pmatrix}
+}
+%\newcommand{\N}{\mbox{$I\!\!N$}}
+%\newcommand{\Z}{\mbox{$Z\!\!\!Z$}}
+%\newcommand{\Q}{\mbox{$I\:\!\!\!\!\!Q$}}
+%\newcommand{\R}{\mbox{$I\!\!R$}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\renewcommand{\L}{\mathbb{L}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\fall}[1]{\text{Fall #1: }}
+\newcommand{\menge}[1]{\left\lbrace #1 \right\rbrace}
+\newcommand{\tuple}[1]{\left( #1 \right)}
+\newcommand{\oBdA}{\text{oBdA: }}
+\newcommand{\entspr}{\ensuremath \widehat{=}}
+\newcommand{\Vek}[3]{\left(\begin{array}{c}#1\\#2 
+\ifthenelse{\equal{#3}{}}{}{\\#3}\end{array}\right)}
+\newcommand{\vect}[1]{\tuple{\begin{array}{c}#1\end{array}}}
+\makeatletter
+\newcommand*{\rom}[1]{\expandafter\@slowromancap\romannumeral #1@}
+\makeatother
+\newcommand{\lgsto}[4]{
+	\xrightarrow[
+		\overset{
+			\text{\scriptsize #3}
+		}{
+			\text{#4}
+		}
+	]{
+		\overset{
+			\text{\scriptsize #1}
+		}{
+			\text{#2}
+		}
+	}
+}
+\renewcommand{\mod}{\text{ mod }}
+\newcommand{\ggT}{\text{ggT}}
+\newcommand{\id}{\text{id}}
+\newcommand{\IV}{\overset{\text{IV}}{=}}
+\newcommand{\ZZ}{\ensuremath{\mathrm{Z\kern-.3em\raise-0.5ex\hbox{Z}}:\phantom{}}}
+\newcommand{\bewInd}{,~~~~\text{Beweis über vollst. Induktion}}
+\newcommand{\bewWid}{,~~~~\text{Beweis durch Wiederspruch}}
+\newcommand{\grad}{\text{grad}}
+\newcommand{\seibdg}[1]{\intertext{Sei $#1$ beliebig. Dann gilt: }}
+\newcommand{\seimbdg}[1]{\intertext{Seien $#1$ beliebig. Dann gilt: }}
+\newcommand{\phantomn}{\phantom{}}
+\newcommand{\overtext}[2]{\overset{\text{\scriptsize #1}}{#2}}
+\newcommand{\Abb}{\text{Abb}}
+\newcommand{\iuvr}{\text{ ist Untervektorraum von }}
+\newcommand{\ikuvr}{\text{ ist kein Untervektorraum von }}
+\newcommand{\seilpmi}{\hspace{3pt}\Longleftarrow\hspace{3pt}}
+\newcommand{\Kern}{\text{Kern}}
+\newcommand{\Bild}{\text{Bild}}
+\newcommand{\Spann}[1]{\left\langle#1\right\rangle}
+\newcommand{\Rang}{\text{Rang}}
+%\renewcommand{\phi}{\varphi}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\defeq}{=_{\text{def}}}
+\newcommand{\under}[1]{\left\llbracket #1\right\rrbracket}
+\newcommand{\PROP}{\text{PROP}}
+\makeatletter
+\providecommand*{\Dashv}{
+	\mathrel{
+		\mathpalette\@Dashv\vDash
+	}
+}
+\newcommand*{\@Dashv}[2]{
+	\reflectbox{$\m@th#1#2$}
+}
+\makeatother
+
+\newcommand{\iffl}{\Dashv\vDash}
+
+\makeatletter
+\providecommand*{\rimplies}{
+	\mathrel{
+		\mathpalette\@rimplies\implies
+	}
+}
+\newcommand*{\@rimplies}[2]{
+	\reflectbox{$\m@th#1#2$}
+}
+\makeatother
+\newenvironment{bprooftree}
+	{\leavevmode\hbox\bgroup}
+	{\DisplayProof\egroup}
+
+\newcommand{\ot}{\leftarrow}
+\newcommand{\AV}{\text{AV}}
+\newcommand{\NP}{\text{NP}}
+\begin{document} 
+\section{Introduction}
+In projects \verb|1-hello| to \verb|9-final| we gradually built up a framework for parsing strings using grammars.  We started with easy arithmetic expressions (\verb|product of sum of 2 and 5 and 3|), which are easily parseable by a recursive descent parser, since they're non-ambiguous. A recursive descent parser basically tries to apply every rule until it finds a valid chain of applications.\\
+Then we continued on to more difficult expressions, removing \verb|product of| and \verb|sum of| by defining a left recursive grammar; rules like $A\to A\alpha$ are called left-recursive. These lead to an endless recursion when using a recursive descent parser. Therefore we had to modify the grammar used by hand to still be able to parse our expressions. Doing this automatically is the topic of my final project.\\
+Later on we concerned ourselves with precedence, associativity and pretty printing as well. My project is able to handle associativity; precedence can be handled by carefully crafting the grammar. 
+
+\section{Transforming left-recursive grammars}\label{sec:transforming}
+Let's say we have a rule like this: 
+\begin{grammar}
+<A> ::= <A> $\alpha_1$ | <A> $\alpha_2$ | \ldots
+ \alt $\beta_1$ | $\beta_2$ | \ldots
+\end{grammar}
+If we were to form a word using the rule, we'd eventually have to replace \syntax{<A>} by one of the $\beta_i$s. This would then be followed by any amount of $\alpha_j$s (even none). Therefore we can form the following, equivalent rules:
+\begin{grammar}
+<A>  ::= $\beta_1$<A'>  | $\beta_2$<A'>  | \ldots
+
+<A'> ::= $\alpha_1$<A'> | $\alpha_2$<A'> | \ldots | $\epsilon$
+\end{grammar}
+Where \syntax{<A'>} is a nonterminal not yet used in the grammar, and $\epsilon$ is the empty word.\\
+By applying this method to every rule, we can transform a directly left-recursive grammar to a non left-recursive grammar producing the same words. Not covered are loops of length 2 or more; however this is not very complicated in principle and follows the same general rule as eliminating direct left recursion.
+
+\section{Implementation}
+For this example I'll be using the following simple grammar to parse arithmetic expressions:
+\begin{lstlisting}
+val lrG: Grammar = 
+    Grammar(
+      start = add,
+      rules = Map(
+        add -> ((add ~ #+ ~ add) || mul),
+        mul -> ((mul ~ #* ~ mul) || num)
+      ),
+      associativity = Map(),
+      precedence = Map()
+    )
+\end{lstlisting}
+Where \verb|~| is the concatenation of primitives and \verb$||$ is the union. You may notice the fields \verb|associativity| and \verb|precedence|; these are only used for declaring associativity of operators, I'll come to that later.\\
+To eliminate left recursion of a rule, I declared the following method:
+\begin{lstlisting}
+def transformLRRule(lhs: Nonterminal, rhses: List[RuleRHS], join: List[RuleRHS] => RuleRHS): Map[Nonterminal, RuleRHS] = {
+    var alphas = ListBuffer[RuleRHS]()
+    var betas = ListBuffer[RuleRHS]()
+    for(rhs <- rhses) {
+      rhs match {
+        case t:Terminal => betas += t
+        case c:Comment => betas += c
+        case nt:Nonterminal if(nt != lhs) => betas += nt
+        case s:Sequence => {
+          val collapsed = collapseSequence(s)
+          println(collapsed.head)
+          if(collapsed.head == lhs){
+            alphas += joinToSequence(collapsed.tail)
+          }
+          else{
+            betas += s 
+          }
+        } 
+      }
+    }
+    var secondNT = nextNonterminal(lhs)
+    var lhsTo = join(betas.toList.map {
+      r => (r ~~ secondNT)
+    })
+    var sNTTo = join(alphas.toList.map {
+      r => (r ~~ secondNT)
+    } :+ eps)
+    Map(
+      lhs -> lhsTo,
+      secondNT -> sNTTo  
+    )
+  }
+\end{lstlisting}
+It takes as arguments the left hand side symbol, a list of alternative right sides and a function which rebuilds the right sides into single rules. Those are returned as a Map for easier handling. \\
+It builds a list of $\alpha$s and $\beta$s as seen in~\ref{sec:transforming} and ''guesses'' a not used nonterminal by prepending a \verb|'|. Then it builds the rules using the special operator \verb|~~|, which when parsing indicates that this concatenation has been automatically built. The second rule (\syntax{<A'> ::= $\alpha_1$<A'> | \ldots}) has epsilon appended. Since the recursive descent parser tries the rules in order, it would succeed on the epsilon rule every time and stop parsing afterwards falsely if the epsilon would be in any other place.\\
+By applying this method to every rule of an input grammar, we receive a non-left recursive equivalent grammar. When parsing however, we receive a bloated syntax tree, since most nonterminals will be duplicated. Therefore we introduce the method \verb|simplify|:
+\begin{lstlisting}
+def simplify(g: Grammar)(syntaxTree: Tree): Tree = syntaxTree match {
+    case Branch(symbol, list) => {
+      val list2 = list.filter(x => x match{case Branch(sym, List()) => false; case _ => true})
+      var rule = g.lookup(Nonterminal(symbol))
+      rule match {
+        case Select(_, _) | AutoSequence(_, _) => {
+          if(list2.length == 1){
+            simplify(g)(list2.head)
+          }
+          else
+            Branch(symbol, list2.map(simplify(g)))
+        }
+        case t => Branch(symbol, list2.map(simplify(g)))
+      }
+    }
+    case t => t 
+  }
+\end{lstlisting}
+\verb|simplify| takes a grammar and a corresponding syntax tree and tries to simplify the tree. It does this recursively by removing empty lists generated by the epsilon, trimming double symbols by looking for sequences generated by \verb|~~| and removing unneeded symbols like  \verb|+|. The latter is specified by the grammar by declaring them as \verb|Comment| instead of \verb|Terminal|. Likewise symbols with a list containing only one element are trimmed if allowed by declaring them as \verb|Select| instead of \verb|Choice|.\\
+Lastly associativity is handled by rotating the syntax tree. Per default all operators are left associative. If you want right associative operators, you have to specify \verb|associativity| and \verb|precedence| when declaring your grammar and later run \verb|transformAssoc| on your syntax tree.\\
+\verb|associativity| should contain a Map which maps all nonterminals to a boolean indicating whether they are left (\verb|false|) or right(\verb|true|) associative.
+\verb|precedence| should contain a Map which maps all nonterminals to their precedence. Operators with a different precedence will not be affected by each other when doing associativity. The other way around is also true: if you declare \verb|add| and \verb|sub| with the same precedence, a syntax tree of $2+3-4$ will represent $(2+3)-4$ after applying \verb|transformAssoc|.
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
