@@ -1,3 +1,7 @@
 *.class
 target
 project
+*.aux
+*.ps
+*.synctex.gz
+*.log
